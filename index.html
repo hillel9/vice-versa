@@ -3,11 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Send to Make.com</title>
+    <title>Vice Versa Wizard</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <input type="text" id="textInput" placeholder="Enter text to send">
-    <button id="sendButton">Send to Webhook</button>
+    <div id="screen-1" class="screen active">
+        <h1 class="screen-title">Take your first vice versa</h1>
+        <button id="continue-btn" class="button">&gt;</button>
+    </div>
+
+    <div id="screen-2" class="screen">
+        <h1 class="screen-title">Pick a few topics</h1>
+        <div class="tags-container">
+        </div>
+        <button id="finish-btn" class="button">&gt;</button>
+    </div>
+
+    <div id="screen-3" class="screen">
+        <h1 class="screen-title">Ready to go down the rabbit hole?</h1>
+        <div class="tags-container">
+            <div class="tag" id="submit-yes">Yes</div>
+            <div class="tag" id="submit-no">No</div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
