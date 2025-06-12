@@ -253,11 +253,13 @@
         finalResponseMessage.textContent = 'Analyzing your choices...';
 
         const shareBtn = document.getElementById('share-btn');
+        const reloadBtn = document.getElementById('reload-btn');
         shareBtn.style.display = 'none';
+        reloadBtn.style.display = 'none';
 
         // Properly stringify the choices object to be included in the prompt
         const choicesText = JSON.stringify(userData.choices, null, 2); // Using JSON.stringify for a clean format
-        const finalPrompt = guidance + "\n\n" + choicesText;
+        const finalPrompt = guidance + userData.honestReviewer + "\n\n" + choicesText;
         console.log(finalPrompt);
 
         try {
@@ -268,7 +270,8 @@
 
             finalResponseMessage.style.display = 'none';
             finalResponseContainer.style.display = 'block';
-            shareBtn.style.display = 'block';
+            shareBtn.style.display = 'inline-block';
+            reloadBtn.style.display = 'inline-block';
 
             // Create title element
             const reviewerTitle = document.createElement('h2');
@@ -304,6 +307,10 @@
             link.href = canvas.toDataURL('image/png');
             link.click();
         });
+    });
+
+    document.getElementById('reload-btn').addEventListener('click', () => {
+        location.reload(true);
     });
 
     async function sendToWebhook(data) {
