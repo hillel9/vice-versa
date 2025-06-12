@@ -230,3 +230,25 @@ body, html {
     margin-bottom: 48px;
     max-width: 580px;
 }
+
+.review-text {
+    font-size: 32px;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+#share-btn {
+    margin-top: 48px;
+    background-color: #fff;
+    color: #000;
+    border: 8px solid #000;
+    cursor: pointer;
+    font-family: "Anton", sans-serif;
+    font-size: 56px;
+    line-height: 1;
+    width: auto;
+    height: auto;
+    padding: 16px 32px;
+    border-radius: 0;
+    text-align: center;
+}

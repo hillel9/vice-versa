@@ -252,6 +252,9 @@
         const finalResponseMessage = document.getElementById('final-response-loading');
         finalResponseMessage.textContent = 'Analyzing your choices...';
 
+        const shareBtn = document.getElementById('share-btn');
+        shareBtn.style.display = 'none';
+
         // Properly stringify the choices object to be included in the prompt
         const choicesText = JSON.stringify(userData.choices, null, 2); // Using JSON.stringify for a clean format
         const finalPrompt = guidance + "\n\n" + choicesText;
@@ -265,6 +268,7 @@
 
             finalResponseMessage.style.display = 'none';
             finalResponseContainer.style.display = 'block';
+            shareBtn.style.display = 'block';
 
             // Create title element
             const reviewerTitle = document.createElement('h2');
@@ -285,6 +289,22 @@
             finalResponseMessage.textContent = `An error occurred while sending your results: ${error.message}`;
         }
     }
+
+    document.getElementById('share-btn').addEventListener('click', () => {
+        const responseContainer = document.getElementById('final-response-container');
+        html2canvas(responseContainer, {
+            // Options to improve image quality
+            scale: 2,
+            useCORS: true,
+            backgroundColor: '#ffffff' // Match the container background
+        }).then(canvas => {
+            // Create a link to download the image
+            const link = document.createElement('a');
+            link.download = 'vice-versa-review.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
+    });
 
     async function sendToWebhook(data) {
         const webhookURL = 'https://hook.eu2.make.com/u3p5qrumv6aawha7nmg9kfypjmielamt';

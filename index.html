@@ -12,12 +12,12 @@
 <body>
     <div id="screen-1" class="screen active">
         <h1 class="screen-title first-title">Ready to get profiled, roasted, or revered?</h1>
-        <p class="screen-subtitle">Here’s the game.
+        <p class="screen-subtitle">Here's the game.
             You make fast choices.<br>
             An honest reviewer breaks you down.<br>
             
             Could be deep. Could be dumb.<br>
-            Either way — you’ll learn something.</p>
+            Either way — you'll learn something.</p>
         <button id="continue-btn" class="button">&gt;</button>
     </div>
 
@@ -55,12 +55,15 @@
 
     <div class="screen" id="screen-7">
         <p id="final-response-loading" class="response-message"></p>
-        <div id="final-response-container">
-        </div>
+        <button id="share-btn" class="button" style="display: none;">Share Your Review</button>
+        <div id="final-response-container" style="display: none;">
+            <!-- Reviewer title and text will be dynamically inserted here -->
+        </div>  
     </div>
 
     <script src="js/prompt.js"></script>
-    <script src="js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="js/instructions.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
