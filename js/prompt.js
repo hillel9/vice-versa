@@ -1,4 +1,4 @@
-const topics = ['U2', 'Tarantino', 'Guilty pleasures', 'Things that make you cry', 'Harry Potter', 'SQL Clauses', '90s villains', 'Nirvana', 'Breakfast crimes', 'French desert', 'Kaltura', 'Red hot chili peppers', 'Jim Carrey', 'Pokemons', 'Video codecs'];
+const topics = ['U2', 'Tarantino', 'Guilty pleasures', 'Things that make you cry', 'Harry Potter', 'SQL Clauses', '90s villains', 'Nirvana', 'Breakfast crimes', 'French desert', 'Kaltura', 'Desert island items', 'Rock bands', 'Midnight snack decisions', 'Cursed kitchen gadgets'];
 const reviewers = ['Gordon Ramsay', 'Nick Cave', 'Quentin Tarantino','Socrates', 'Morgan Freeman','Homer Simpson','Victor Hugo','Jim Carrey','Albert Camus','Joe Rogan','Donald Trump'];
 
 

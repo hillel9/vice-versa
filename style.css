@@ -194,7 +194,7 @@ body, html {
     margin: 0;
 }
 
-#final-response-container p{
+#final-response-container, .screen-subtitle{
     font-size: 24px;
     line-height: 1.5;
     margin: 0;
