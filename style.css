@@ -21,6 +21,7 @@ body, html {
 .screen-title {
     font-family: "Anton", sans-serif;
     font-size: 76px;
+    line-height: 1.2;
     margin: 0 0 48px 0;
     padding: 10px 0;
 }
@@ -29,6 +30,7 @@ body, html {
     font-size: 76px;
     padding: 0;
     margin: 0;
+    line-height: 1.2;
 }
 
 .button {
@@ -73,7 +75,7 @@ body, html {
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     font-family: "Anton", sans-serif;
-    font-size: 76px;
+    font-size: 56px;
     font-weight: normal;
     line-height: 1;
     white-space: nowrap;
@@ -146,6 +148,7 @@ body, html {
     font-size: 76px;
     font-weight: bold;
     padding: 1rem;
+    line-height: 1.2;
 }
 
 .option[data-option="option-1"] {
@@ -207,7 +210,7 @@ body, html {
     padding: 32px;
     margin: 0;
     text-align: left;
-    width: 580px;
+    max-width: 580px;
     background-color: #000;
 }
 
@@ -250,4 +253,57 @@ body, html {
     padding: 16px 32px;
     border-radius: 0;
     text-align: center;
+}
+
+@media (max-width: 768px) {
+    .screen{
+        padding: 16px;
+    }
+    .screen-title {
+        font-size: 48px;
+        margin-bottom: 16px;
+    }
+    .screen-subtitle {
+        font-size: 24px;
+    }
+    .button {
+        font-size: 48px;
+    }
+    .tag {
+        font-size: 24px;
+        padding: 8px 16px;
+        border-width: 4px;
+    }
+
+    .tags-container{
+        gap: 16px;
+    }
+
+    .review-text {
+        font-size: 24px;
+    }
+    #final-response-container {
+        font-size: 48px;
+    }
+    #final-response-container h2 {
+        font-size: 32px;
+    }
+    #final-response-loading{
+        font-size: 48px;
+        margin-bottom: 16px;
+    }
+    .screen.no-padding{
+        padding: 0;
+    }
+
+    .option{
+        font-size: 48px;
+    }
+    #response-message{
+        font-size: 48px;
+    }
+    #share-btn{
+        font-size: 32px;
+        padding: 8px 16px;
+    }
 }
