@@ -228,4 +228,5 @@ body, html {
 
 .screen-subtitle{
     margin-bottom: 48px;
+    max-width: 580px;
 }
