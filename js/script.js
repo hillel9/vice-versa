@@ -18,6 +18,7 @@
     const responseMessage = document.getElementById('response-message');
     const finalResponseContainer = document.getElementById('final-response-container');
 
+   let countdownInterval;
    const userData = {
         tags: [],
         honestReviewer: "",
@@ -90,6 +91,7 @@
         // Go to the final confirmation screen
         screen2.classList.remove('active');
         screen3.classList.add('active');
+        window.scrollTo(0, 0);
     });
 
     continueBtn3.addEventListener('click', () => {
@@ -104,7 +106,7 @@
         // Switch to the final waiting screen
         screen4.classList.remove('active');
         screen5.classList.add('active');
-        responseMessage.textContent = 'Ok I send your request to the AI... Hopefully I will get a valid json response... god knows...';
+        responseMessage.textContent = 'Loading... Be prepared to be roasted.';
 
         try {
             // Build the prompt right before sending
@@ -157,6 +159,9 @@
 
             slate.innerHTML = `
                 <div class="option" data-option="option-1">${option1Text}</div>
+                <div class="timer">
+                    <span class="timer-countdown">- 05</span>
+                </div>
                 <div class="option" data-option="option-2">${option2Text}</div>
             `;
 
@@ -164,6 +169,11 @@
         });
 
         addSlateEventListeners();
+
+        const firstSlate = slatesContainer.querySelector('.slate.current');
+        if (firstSlate) {
+            startCountdown(firstSlate);
+        }
     }
 
     function addSlateEventListeners() {
@@ -174,6 +184,8 @@
     }
 
     async function handleOptionClick(e) {
+        clearInterval(countdownInterval); // User made a choice, so stop the timer.
+
         const clickedOption = e.target;
         const slate = clickedOption.closest('.slate');
         const nextSlate = slate.nextElementSibling;
@@ -194,48 +206,83 @@
             slate.classList.remove('current');
             slate.classList.add('previous');
             nextSlate.classList.add('current');
+            startCountdown(nextSlate); // Start the timer for the new slate
         } else {
             // Last slate
-            console.log('All choices made. The final data object is available in `userData`:', userData);
-            
-            // Transition to the final screen
-            screen6.classList.remove('active');
-            screen7.classList.add('active');
-            const finalResponseMessage = document.getElementById('final-response-loading');
-            finalResponseMessage.textContent = 'Analyzing your choices...';
+            await endActivity();
+        }
+    }
 
-            // Properly stringify the choices object to be included in the prompt
-            const choicesText = JSON.stringify(userData.choices, null, 2); // Using JSON.stringify for a clean format
-            const finalPrompt = guidance + "\n\n" + choicesText;
-            console.log(finalPrompt);
+    function startCountdown(slate) {
+        clearInterval(countdownInterval); // Clear any previous interval
 
-            try {
-                // Send the collected data as a structured object
-                const finalResponse = await sendResultsToWebhook({ request: finalPrompt });
-                // Assuming the response is JSON with a 'message' field to display
+        const timerDisplay = slate.querySelector('.timer-countdown');
+        let seconds = 10;
 
+        const updateTimerDisplay = () => {
+            const formattedSeconds = String(seconds).padStart(2, '0');
+            timerDisplay.textContent = `- ${formattedSeconds}`;
+        };
 
-                finalResponseMessage.style.display = 'none';
-                finalResponseContainer.style.display = 'block';
+        updateTimerDisplay(); // Initial display
 
-                // Create title element
-                const reviewerTitle = document.createElement('h2');
-                reviewerTitle.textContent = userData.honestReviewer;
-                reviewerTitle.classList.add('reviewer-title'); // optional styling class
+        countdownInterval = setInterval(() => {
+            seconds--;
+            updateTimerDisplay();
 
-                // Create description element
-                const reviewText = document.createElement('p');
-                reviewText.textContent = finalResponse;
-                reviewText.classList.add('review-text'); // optional styling class
-
-                // Append to the screen
-                finalResponseContainer.appendChild(reviewerTitle);
-                finalResponseContainer.appendChild(reviewText);
-
-            } catch (error) {
-                console.error('Error sending final results:', error);
-                finalResponseMessage.textContent = `An error occurred while sending your results: ${error.message}`;
+            if (seconds < 0) { // Use < 0 to allow the "00" to be displayed for one second
+                clearInterval(countdownInterval);
+                // Programmatically click the first option to move to the next slate
+                const firstOption = slate.querySelector('[data-option="option-1"]');
+                if(firstOption) {
+                    firstOption.click();
+                }
             }
+        }, 1000);
+    }
+
+    async function endActivity() {
+        if (countdownInterval) clearInterval(countdownInterval); // Ensure no timers are left running
+
+        console.log('All choices made. The final data object is available in `userData`:', userData);
+        
+        // Transition to the final screen
+        screen6.classList.remove('active');
+        screen7.classList.add('active');
+        const finalResponseMessage = document.getElementById('final-response-loading');
+        finalResponseMessage.textContent = 'Analyzing your choices...';
+
+        // Properly stringify the choices object to be included in the prompt
+        const choicesText = JSON.stringify(userData.choices, null, 2); // Using JSON.stringify for a clean format
+        const finalPrompt = guidance + "\n\n" + choicesText;
+        console.log(finalPrompt);
+
+        try {
+            // Send the collected data as a structured object
+            const finalResponse = await sendResultsToWebhook({ request: finalPrompt });
+            // Assuming the response is JSON with a 'message' field to display
+
+
+            finalResponseMessage.style.display = 'none';
+            finalResponseContainer.style.display = 'block';
+
+            // Create title element
+            const reviewerTitle = document.createElement('h2');
+            reviewerTitle.textContent = userData.honestReviewer + " says:";
+            reviewerTitle.classList.add('reviewer-title'); // optional styling class
+
+            // Create description element
+            const reviewText = document.createElement('p');
+            reviewText.textContent = finalResponse;
+            reviewText.classList.add('review-text'); // optional styling class
+
+            // Append to the screen
+            finalResponseContainer.appendChild(reviewerTitle);
+            finalResponseContainer.appendChild(reviewText);
+
+        } catch (error) {
+            console.error('Error sending final results:', error);
+            finalResponseMessage.textContent = `An error occurred while sending your results: ${error.message}`;
         }
     }
 
