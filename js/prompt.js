@@ -19,11 +19,10 @@ const instructions = {
   };
 
   const guidance = `Based on the user answers below, write a short, bold, and funny review of their personality.
-  In english only. The length should be 100 words max.
+  In english only. The length should be 100 words max. Keep it between 5 or 6 sentences. 
   Dont use bold or italic. Dont use markdown.
   Begin immediately with the first sentence of the review.
-  Keep it between 5 or 6 sentences. You can reference some choices user made, but only indirectly. 
-  Infer the user's personality or lifestylefrom those choices. Focus on themes, attitudes, and contradictions.
-  Each sentence should pack personality but remain punchy and clear. Sprinkle in humor.
-  End with a line that begs to be shared — something you'd screenshot and send to a friend with “this is so me.”
+  Do not name specific choices the user made. Instead, interpret them to reveal underlying values, behaviors, contradictions, or quirks.
+  Each sentence should pack personality but remain punchy and clear. Sprinkle in tons of humor.
+  End with a killer last line.
   The tone of voice should use the following character: `
