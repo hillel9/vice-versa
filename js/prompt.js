@@ -1,5 +1,5 @@
 const topics = ['Brands', 'Guilty pleasures', 'Things that make you cry', 'Harry Potter', 'SQL Clauses', '90s villains', 'U2', 'Nirvana', 'Breakfast crimes', 'French desert', 'Kaltura', 'Desert island items', 'Rock bands', 'Midnight snack decisions', 'Cursed kitchen gadgets'];
-const reviewers = ['Gordon Ramsay', 'Nick Cave', 'Quentin Tarantino','Socrates', 'Morgan Freeman','Homer Simpson','Victor Hugo','Jim Carrey','Albert Camus','Joe Rogan','Donald Trump'];
+const reviewers = ['Gordon Ramsay','Joe Rogan','Donald Trump', 'Nick Cave', 'Quentin Tarantino', 'Serge le mytho', 'Morgan Freeman','Homer Simpson','Victor Hugo','Schwarzie','Jim Carrey','Albert Camus','Socrates'];
 
 
 const instructions = {
@@ -18,4 +18,4 @@ const instructions = {
     The response must be **valid JSON only**, with no comments, no extra characters, no triple dots, no markdown.  `
   };
 
-  const guidance = "Based on the user answers below, write a short, bold, and funny review of their personality. The length should be 100 words max. Avoid dry analysis, cookie-cuttered summaries. Dont use bold or italic. Dont use markdown. Begin immediately with the first sentence of the review. The tone of voice should use the following character: "
+  const guidance = "Based on the user answers below, write a short, bold, and funny review of their personality. In english only.The length should be 100 words max. Avoid dry analysis, cookie-cuttered summaries. Dont use bold or italic. Dont use markdown. Begin immediately with the first sentence of the review. The tone of voice should use the following character: "
