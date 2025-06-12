@@ -7,6 +7,7 @@
     const screen4 = document.getElementById('screen-4');
     const screen5 = document.getElementById('screen-5');
     const screen6 = document.getElementById('screen-6');
+    const screen7 = document.getElementById('screen-7');
     const continueBtn2 = document.getElementById('continue-btn-2');
     const continueBtn3 = document.getElementById('continue-btn-3');
     const continueBtn = document.getElementById('continue-btn');
@@ -15,10 +16,9 @@
     const submitYesBtn = document.getElementById('submit-yes');
     const submitNoBtn = document.getElementById('submit-no');
     const responseMessage = document.getElementById('response-message');
+    const finalResponseContainer = document.getElementById('final-response-container');
 
-    const topics = ['U2', 'Tarantino', 'Tennis', 'Whiskey', 'Harry Potter', 'SQL Clauses', 'Philosopher with a mustache', 'Nirvana', 'Italian food', 'French desert', 'Kaltura', 'Red hot chili peppers', 'Jim Carrey', 'Pokemons', 'Video codecs'];
-    const reviewers = ['Bono', 'Serge', 'Michel'];
-    const userData = {
+   const userData = {
         tags: [],
         honestReviewer: "",
         choices: []
@@ -173,7 +173,7 @@
         });
     }
 
-    function handleOptionClick(e) {
+    async function handleOptionClick(e) {
         const clickedOption = e.target;
         const slate = clickedOption.closest('.slate');
         const nextSlate = slate.nextElementSibling;
@@ -197,13 +197,45 @@
         } else {
             // Last slate
             console.log('All choices made. The final data object is available in `userData`:', userData);
-            // What to do next? For now, we can just log it.
-            // Maybe go to a "Thank you" screen.
-            setTimeout(() => {
-                screen6.classList.remove('active');
-                // For now, let's just clear the screen. A new "thank you" screen would be better.
-                 document.body.innerHTML = '<h1 style="color:#000; text-align:center; margin-top: 50vh; transform: translateY(-50%);">Thank you for your submission!</h1>';
-            }, 500);
+            
+            // Transition to the final screen
+            screen6.classList.remove('active');
+            screen7.classList.add('active');
+            const finalResponseMessage = document.getElementById('final-response-loading');
+            finalResponseMessage.textContent = 'Analyzing your choices...';
+
+            // Properly stringify the choices object to be included in the prompt
+            const choicesText = JSON.stringify(userData.choices, null, 2); // Using JSON.stringify for a clean format
+            const finalPrompt = guidance + "\n\n" + choicesText;
+            console.log(finalPrompt);
+
+            try {
+                // Send the collected data as a structured object
+                const finalResponse = await sendResultsToWebhook({ request: finalPrompt });
+                // Assuming the response is JSON with a 'message' field to display
+
+
+                finalResponseMessage.style.display = 'none';
+                finalResponseContainer.style.display = 'block';
+
+                // Create title element
+                const reviewerTitle = document.createElement('h2');
+                reviewerTitle.textContent = userData.honestReviewer;
+                reviewerTitle.classList.add('reviewer-title'); // optional styling class
+
+                // Create description element
+                const reviewText = document.createElement('p');
+                reviewText.textContent = finalResponse;
+                reviewText.classList.add('review-text'); // optional styling class
+
+                // Append to the screen
+                finalResponseContainer.appendChild(reviewerTitle);
+                finalResponseContainer.appendChild(reviewText);
+
+            } catch (error) {
+                console.error('Error sending final results:', error);
+                finalResponseMessage.textContent = `An error occurred while sending your results: ${error.message}`;
+            }
         }
     }
 
@@ -231,7 +263,26 @@
             return responseData;
         } catch (error) {
             // If parsing fails, it's not valid JSON.
-            console.error("Failed to parse JSON. The server responded with:", responseText);
-            throw new Error(`The server response was not valid JSON. Please check the 'Webhook Response' module in your Make.com scenario. Response: "${responseText}"`);
+            console.error("Failed to parse JSON. The server responded with:", responseData);
+            throw new Error(`The server response was not valid JSON. Please check the 'Webhook Response' module in your Make.com scenario. Response: "${JSON.stringify(responseData)}"`);
         }
+    }
+
+    async function sendResultsToWebhook(data) {
+       
+        const webhookURL = 'https://hook.eu2.make.com/dci9m7jp6ybja4gbpcign5j72t2jobbr';
+
+        const response = await fetch(webhookURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Network response was not ok. Status: ${response.status}`);
+        }
+        
+        return response.text();
     } 
