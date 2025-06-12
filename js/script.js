@@ -6,6 +6,7 @@
     const screen3 = document.getElementById('screen-3');
     const screen4 = document.getElementById('screen-4');
     const screen5 = document.getElementById('screen-5');
+    const screen6 = document.getElementById('screen-6');
     const continueBtn2 = document.getElementById('continue-btn-2');
     const continueBtn3 = document.getElementById('continue-btn-3');
     const continueBtn = document.getElementById('continue-btn');
@@ -19,7 +20,8 @@
     const reviewers = ['Bono', 'Serge', 'Michel'];
     const userData = {
         tags: [],
-        honestReviewer: ""
+        honestReviewer: "",
+        choices: []
     };
     // Continue to the next screen
     continueBtn.addEventListener('click', () => {
@@ -102,7 +104,7 @@
         // Switch to the final waiting screen
         screen4.classList.remove('active');
         screen5.classList.add('active');
-        responseMessage.textContent = 'Waiting for response...';
+        responseMessage.textContent = 'Ok I send your request to the AI... Hopefully I will get a valid json response... god knows...';
 
         try {
             // Build the prompt right before sending
@@ -115,10 +117,12 @@
 
             const data = await sendToWebhook(dataToSend);
             
-            // Display the title from the response
-            responseMessage.textContent = data['set-1']['option-1'] + " vs " + data['set-1']['option-2'];
-            
+            buildSlates(data);
 
+            // Display the title from the response
+            // responseMessage.textContent = data['set-1']['option-1'] + " vs " + data['set-1']['option-2'];
+            screen5.classList.remove('active');
+            screen6.classList.add('active');
 
         } catch (error) {
             console.error('Error:', error);
@@ -132,32 +136,102 @@
         screen2.classList.add('active');
     });
 
+    function buildSlates(data) {
+        const slatesContainer = document.getElementById('slates-container');
+        slatesContainer.innerHTML = '';
+        userData.choices = [];
 
-async function sendToWebhook(data) {
-    const webhookURL = 'https://hook.eu2.make.com/u3p5qrumv6aawha7nmg9kfypjmielamt';
+        const sets = Object.keys(data);
 
-    const response = await fetch(webhookURL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    });
+        sets.forEach((setKey, index) => {
+            const slate = document.createElement('div');
+            slate.classList.add('slate');
+            if (index === 0) {
+                slate.classList.add('current');
+            }
+            slate.dataset.setKey = setKey;
 
-    if (!response.ok) {
-        throw new Error(`Network response was not ok. Status: ${response.status}`);
+            const options = data[setKey];
+            const option1Text = options['option-1'];
+            const option2Text = options['option-2'];
+
+            slate.innerHTML = `
+                <div class="option" data-option="option-1">${option1Text}</div>
+                <div class="option" data-option="option-2">${option2Text}</div>
+            `;
+
+            slatesContainer.appendChild(slate);
+        });
+
+        addSlateEventListeners();
     }
-    
-    // Get the response as JSON
-    const responseData = await response.json();
 
-    try {
-        // Try to parse the text as JSON
-        //return JSON.parse(responseText);
-        return responseData;
-    } catch (error) {
-        // If parsing fails, it's not valid JSON.
-        console.error("Failed to parse JSON. The server responded with:", responseText);
-        throw new Error(`The server response was not valid JSON. Please check the 'Webhook Response' module in your Make.com scenario. Response: "${responseText}"`);
+    function addSlateEventListeners() {
+        const options = document.querySelectorAll('#screen-6 .option');
+        options.forEach(option => {
+            option.addEventListener('click', handleOptionClick);
+        });
     }
-} 
+
+    function handleOptionClick(e) {
+        const clickedOption = e.target;
+        const slate = clickedOption.closest('.slate');
+        const nextSlate = slate.nextElementSibling;
+        const setKey = slate.dataset.setKey;
+
+        const option1Text = slate.querySelector('[data-option="option-1"]').textContent;
+        const option2Text = slate.querySelector('[data-option="option-2"]').textContent;
+        const selectedAnswer = clickedOption.textContent;
+
+        userData.choices.push({
+            set: setKey,
+            'option-1': option1Text,
+            'option-2': option2Text,
+            selected: selectedAnswer
+        });
+
+        if (nextSlate && nextSlate.classList.contains('slate')) {
+            slate.classList.remove('current');
+            slate.classList.add('previous');
+            nextSlate.classList.add('current');
+        } else {
+            // Last slate
+            console.log('All choices made. The final data object is available in `userData`:', userData);
+            // What to do next? For now, we can just log it.
+            // Maybe go to a "Thank you" screen.
+            setTimeout(() => {
+                screen6.classList.remove('active');
+                // For now, let's just clear the screen. A new "thank you" screen would be better.
+                 document.body.innerHTML = '<h1 style="color:#000; text-align:center; margin-top: 50vh; transform: translateY(-50%);">Thank you for your submission!</h1>';
+            }, 500);
+        }
+    }
+
+    async function sendToWebhook(data) {
+        const webhookURL = 'https://hook.eu2.make.com/u3p5qrumv6aawha7nmg9kfypjmielamt';
+
+        const response = await fetch(webhookURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Network response was not ok. Status: ${response.status}`);
+        }
+        
+        // Get the response as JSON
+        const responseData = await response.json();
+
+        try {
+            // Try to parse the text as JSON
+            //return JSON.parse(responseText);
+            return responseData;
+        } catch (error) {
+            // If parsing fails, it's not valid JSON.
+            console.error("Failed to parse JSON. The server responded with:", responseText);
+            throw new Error(`The server response was not valid JSON. Please check the 'Webhook Response' module in your Make.com scenario. Response: "${responseText}"`);
+        }
+    } 
