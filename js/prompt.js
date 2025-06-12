@@ -18,4 +18,4 @@ const instructions = {
     The response must be **valid JSON only**, with no comments, no extra characters, no triple dots, no markdown.  `
   };
 
-  const guidance = "Based on the user answers below, write a short, bold, and funny review of their personality. In english only.The length should be 100 words max. Avoid dry analysis, cookie-cuttered summaries. Dont use bold or italic. Dont use markdown. Begin immediately with the first sentence of the review. The tone of voice should use the following character: "
+  const guidance = "Based on the user answers below, write a short, bold, and funny review of their personality. In english only.The length should be 100 words max. Avoid dry analysis, cookie-cuttered summaries. Dont use bold or italic. Dont use markdown. Begin immediately with the first sentence of the review. Keep it between 4–6 sentences. Each sentence should pack personality but remain punchy and clear. Avoid run-ons. The tone of voice should use the following character: "
