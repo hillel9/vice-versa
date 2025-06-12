@@ -41,7 +41,7 @@ body, html {
     line-height: 1;
 }
 
-#finish-btn {
+.floating {
     position: fixed;
     bottom: 16px;
     right: 16px;
@@ -55,7 +55,6 @@ body, html {
     align-items: flex-start;
     gap: 48px;
     width: 100%;
-    height: 100%;
     box-sizing: border-box;
 }
 
@@ -79,23 +78,3 @@ body, html {
     color: #fff;
     border-color: #000;
 }
-
-/* Styles for the final screen */
-#screen-3 {
-    background-color: #000;
-    color: #fff;
-}
-
-#screen-3 h1, #screen-3 .tag {
-    color: #fff;
-}
-
-#screen-3 .tag {
-    background-color: #000;
-    border-color: #fff;
-}
-
-#screen-3 .tag:hover {
-    background-color: #fff;
-    color: #000;
-} 
