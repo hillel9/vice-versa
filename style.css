@@ -220,28 +220,35 @@ body {
     margin: 0 auto;
 }
 
-.reviewer-title{
+.review-header{
+    display: flex; flex-direction: column; gap: var(--space-sm);
+    align-items: center;
+    padding: var(--space-lg);
+    border:4px solid #000; 
+    text-align: center;
+}
+
+.reviewer-name{
     font-size: var(--font-size-lg);
     margin: 0;
-    padding: var(--space-lg);
-    border:4px solid #000; text-align: center;
     text-transform: uppercase; letter-spacing: 4px;
 }
 
-.review-text {
+.review-title{
+    font-size: var(--font-size-xl); line-height: var(--line-height-tight);
+    margin:0;
+}
+
+.review-body-container {
     font-size: var(--font-size-md);
     line-height: var(--line-height-normal);
     padding: var(--space-lg);
     border:4px solid #000; border-top: none;
     margin: 0;
+    text-align: left;
 }
 
-.review-title{
-    font-size: var(--font-size-lg);
-    margin:0;
-    text-align: left;
-    margin-bottom: var(--space-sm);
-}
+.review-body-container p {margin: 0; padding: 0;}
 
 .bottom-actions{
     position: fixed;

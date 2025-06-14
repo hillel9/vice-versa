@@ -274,13 +274,9 @@
             shareBtn.style.display = 'block';
 
             // Create title element
-            const reviewerTitle = document.createElement('h2');
-            reviewerTitle.textContent = userData.honestReviewer;
-            reviewerTitle.classList.add('reviewer-title'); // optional styling class
-
-            // Create description element
-            const reviewText = document.createElement('div');
-            reviewText.classList.add('review-text'); // optional styling class
+            const reviewerName = document.createElement('h2');
+            reviewerName.textContent = userData.honestReviewer;
+            reviewerName.classList.add('reviewer-name'); // optional styling class
 
             // Create review title
             const reviewTitle = document.createElement('h3');
@@ -293,10 +289,12 @@
             reviewBody.classList.add('review-body'); // optional styling class
 
             // Append to the screen
-            finalResponseContainer.appendChild(reviewerTitle);
-            finalResponseContainer.appendChild(reviewText);
-            reviewText.appendChild(reviewTitle);
-            reviewText.appendChild(reviewBody);
+            const reviewHeader = document.getElementById('review-header');
+            const reviewBodyContainer = document.getElementById('review-body-container');
+            
+            reviewHeader.appendChild(reviewTitle);
+            reviewHeader.appendChild(reviewerName);
+            reviewBodyContainer.appendChild(reviewBody);
             
 
         } catch (error) {
