@@ -106,7 +106,7 @@
         // Switch to the final waiting screen
         screen4.classList.remove('active');
         screen5.classList.add('active');
-        responseMessage.textContent = 'Loading... Be prepared to be roasted.';
+        responseMessage.textContent = "Loading... Be prepared to be roasted.";
 
         try {
             // Build the prompt right before sending
@@ -221,7 +221,7 @@
 
         const updateTimerDisplay = () => {
             const formattedSeconds = String(seconds).padStart(2, '0');
-            timerDisplay.textContent = `- ${formattedSeconds}`;
+            timerDisplay.textContent = `${formattedSeconds}`;
         };
 
         updateTimerDisplay(); // Initial display
@@ -257,14 +257,17 @@
 
         // Properly stringify the choices object to be included in the prompt
         const choicesText = JSON.stringify(userData.choices, null, 2); // Using JSON.stringify for a clean format
-        const finalPrompt = guidance + userData.honestReviewer + "\n\n" + choicesText;
+        const finalPrompt = {
+            title: guidance.title + userData.honestReviewer,
+            body: guidance.body + userData.honestReviewer + "\n\n" + choicesText,
+        }
         console.log(finalPrompt);
 
         try {
             // Send the collected data as a structured object
-            const finalResponse = await sendResultsToWebhook({ request: finalPrompt });
+            const finalResponse = await sendResultsToWebhook(finalPrompt);
             // Assuming the response is JSON with a 'message' field to display
-
+            console.log(finalResponse.title);
 
             finalResponseMessage.style.display = 'none';
             finalResponseContainer.style.display = 'block';
@@ -272,17 +275,29 @@
 
             // Create title element
             const reviewerTitle = document.createElement('h2');
-            reviewerTitle.textContent = userData.honestReviewer + " says:";
+            reviewerTitle.textContent = userData.honestReviewer;
             reviewerTitle.classList.add('reviewer-title'); // optional styling class
 
             // Create description element
-            const reviewText = document.createElement('p');
-            reviewText.textContent = finalResponse;
+            const reviewText = document.createElement('div');
             reviewText.classList.add('review-text'); // optional styling class
+
+            // Create review title
+            const reviewTitle = document.createElement('h3');
+            reviewTitle.textContent = finalResponse.title;
+            reviewTitle.classList.add('review-title'); // optional styling class
+
+            // Create review body
+            const reviewBody = document.createElement('p');
+            reviewBody.textContent = finalResponse.body;
+            reviewBody.classList.add('review-body'); // optional styling class
 
             // Append to the screen
             finalResponseContainer.appendChild(reviewerTitle);
             finalResponseContainer.appendChild(reviewText);
+            reviewText.appendChild(reviewTitle);
+            reviewText.appendChild(reviewBody);
+            
 
         } catch (error) {
             console.error('Error sending final results:', error);
@@ -350,6 +365,6 @@
         if (!response.ok) {
             throw new Error(`Network response was not ok. Status: ${response.status}`);
         }
-        
-        return response.text();
+
+        return response.json();
     } 

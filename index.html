@@ -5,46 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roasted VS Revered</title>
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-
+    
+    <link rel="stylesheet" href="tokens.css">
     <link rel="stylesheet" href="style.css">
     
 </head>
 <body>
-    <div id="screen-1" class="screen active">
-        <h1 class="screen-title first-title">Ready to get profiled, roasted, or revered?</h1>
+    <div id="screen-1" class="screen screen-padding active">
+        <h1 class="screen-title screen-title-margin">Ready to get profiled, roasted, or revered?</h1>
         <p class="screen-subtitle">Here's the game.
             You make fast choices.<br>
             An honest reviewer breaks you down.<br>
             
             Could be deep. Could be dumb.<br>
-            Either way — you'll learn something.</p>
-        <button id="continue-btn" class="button">&gt;</button>
+            Either way — you'll learn something.
+        </p>
+        <button id="continue-btn" class="button-nxt">&gt;</button>
     </div>
 
-    <div id="screen-2" class="screen">
-        <h1 class="screen-title">What topics you want to be asked about?</h1>
+    <div id="screen-2" class="screen screen-padding">
+        <h1 class="screen-title screen-title-margin">What topics you want to be asked about?</h1>
         <div class="tags-container">
         </div>
-        <button id="continue-btn-2" class="button floating">&gt;</button>
+        <button id="continue-btn-2" class="button-nxt floating">&gt;</button>
     </div>
 
-    <div id="screen-3" class="screen">
-        <h1 class="screen-title">Who you want to be your honest reviewer?</h1>
+    <div id="screen-3" class="screen screen-padding">
+        <h1 class="screen-title screen-title-margin">Who you want to be your honest reviewer?</h1>
         <div class="tags-container">
         </div>
-        <button id="continue-btn-3" class="button floating">&gt;</button>
+        <button id="continue-btn-3" class="button-nxt floating">&gt;</button>
     </div>
 
-    <div id="screen-4" class="screen">
-        <h1 class="screen-title">Ready to get roasted?</h1>
+    <div id="screen-4" class="screen screen-padding">
+        <h1 class="screen-title screen-title-margin">Ready to get roasted?</h1>
         <div class="tags-container">
             <div class="tag" id="submit-yes">Yes</div>
             <div class="tag" id="submit-no">No</div>
         </div>
     </div>
 
-    <div class="screen" id="screen-5">
-        <p id="response-message">Please wait...</p>
+    <div class="screen screen-padding" id="screen-5">
+        <h1 id="response-message" class="screen-title"></h1>
     </div>
 
     <div class="screen no-padding" id="screen-6">
@@ -53,9 +55,11 @@
         </div>
     </div>
 
-    <div class="screen" id="screen-7">
+    <div class="screen screen-padding" id="screen-7">
         <p id="final-response-loading" class="response-message"></p>
-        <button id="share-btn" class="button" style="display: none;">Share Your Roast</button>
+        <div class="bottom-actions">
+            <button id="share-btn" class="button" style="display: none;">Share Your Roast</button>
+        </div>
         <div id="final-response-container" style="display: none;">
             <!-- Reviewer title and text will be dynamically inserted here -->
         </div>

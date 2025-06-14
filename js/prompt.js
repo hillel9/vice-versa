@@ -1,4 +1,4 @@
-const topics = ['Brands', 'Guilty pleasures', 'Things that make you cry', 'Harry Potter', 'Smells', 'SQL Clauses', 'Beatles songs','Things you would do for love','Things you would do for money', '90s villains', 'U2', 'Footabl Clubs','Disney Movies', 'Nirvana', 'Breakfast crimes', 'French desert', 'Kaltura', 'Desert island items', 'Rock bands', 'Midnight snack decisions', 'Cursed kitchen gadgets'];
+const topics = ['Brands', 'Guilty pleasures', 'Things that make you cry', 'Harry Potter', 'Smells', 'SQL Clauses', 'Beatles songs','Things you would do for love','Things you would do for money', '90s villains', 'U2','TV Shows', 'Footabl Clubs','Disney Movies', 'Nirvana', 'Breakfast crimes', 'French patisserie', 'Kaltura', 'Desert island items', 'Rock bands', 'Midnight snack decisions', 'Cursed kitchen gadgets'];
 const reviewers = ['Gordon Ramsay','Joe Rogan','Donald Trump', 'Nick Cave', 'Quentin Tarantino', 'Serge le mytho', 'Morgan Freeman','Homer Simpson','Victor Hugo','Schwarzie','Jim Carrey','Albert Camus','Socrates'];
 
 
@@ -18,7 +18,10 @@ const instructions = {
     The response must be **valid JSON only**, with no comments, no extra characters, no triple dots, no markdown.  `
   };
 
-  const guidance = `Based on the user answers below, write a short, bold, and funny review of their personality.
+  const guidance = {
+    title: `Write an impactful and funny short title using the following tone of voice and review.
+    The response must be a string, with no comments, no extra characters, no triple dots, no markdown. `,
+    body: `Based on the user answers below, write a short, bold, and funny review of their personality.
   In english only. The length should be 100 words max. Keep it between 5 or 6 sentences. 
   Dont use bold or italic. Dont use markdown.
   Begin immediately with the first sentence of the review.
@@ -26,3 +29,4 @@ const instructions = {
   Each sentence should pack personality but remain punchy and clear. Sprinkle in tons of humor.
   End with a killer last line.
   The tone of voice should use the following character: `
+  }

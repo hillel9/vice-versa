@@ -1,0 +1,32 @@
+/* Design tokens */
+:root {
+    /* Colors */
+    --color-bg: #fff;
+    --color-fg: #000;
+    --color-primary: #000;
+    --color-secondary: #fff;
+  
+    /* Typography */
+    --font-display: "Anton", sans-serif;
+    --font-size-xl: 76px;
+    --font-size-lg: 48px;
+    --font-size-md: 32px;
+    --font-size-sm: 24px;
+    --line-height-tight: 1.2;
+    --line-height-normal: 1.5;
+  
+    /* Spacing */
+    --space-xs: 8px;
+    --space-sm: 16px;
+    --space-md: 32px;
+    --space-lg: 48px;
+  
+    /* Radii & Borders */
+    --radius-circle: 50%;
+    --border-width: 4px;
+    --border-width-lg: 8px;
+  
+    /* Transitions */
+    --transition-fast: 0.2s ease-in-out;
+    --transition-med: 0.3s ease-in-out;
+  }
