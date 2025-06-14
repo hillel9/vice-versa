@@ -19,8 +19,11 @@ const instructions = {
   };
 
   const guidance = {
-    title: `Write an impactful and funny short title using the following tone of voice and review.
-    The response must be a string, with no comments, no extra characters, no triple dots, no markdown. `,
+    title: `Write an impactful and funny short title of the following review. 
+    Keep it under 10 words. 
+    It should feel personal, funny, or strange — not corporate or generic. 
+    Using the tone of voice and style of: `,
+    titleFormat: `The title should be a string, with no comments, no extra characters, no triple dots, no markdown.`,
     body: `Based on the user answers below, write a short, bold, and funny review of their personality.
   In english only. The length should be 100 words max. Keep it between 5 or 6 sentences. 
   Dont use bold or italic. Dont use markdown.

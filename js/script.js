@@ -258,7 +258,7 @@
         // Properly stringify the choices object to be included in the prompt
         const choicesText = JSON.stringify(userData.choices, null, 2); // Using JSON.stringify for a clean format
         const finalPrompt = {
-            title: guidance.title + userData.honestReviewer,
+            title: guidance.title + userData.honestReviewer + ". " + guidance.titleFormat + "This is the review:",
             body: guidance.body + userData.honestReviewer + "\n\n" + choicesText,
         }
         console.log(finalPrompt);
