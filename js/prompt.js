@@ -1,4 +1,4 @@
-const topics = ['Brands', 'Guilty pleasures', 'Things that make you cry', 'Harry Potter', 'Smells', 'SQL Clauses', 'Beatles songs','Things you would do for love','Things you would do for money', '90s villains', 'U2','TV Shows', 'Footabl Clubs','Disney Movies', 'Nirvana', 'Breakfast crimes', 'French patisserie', 'Kaltura', 'Desert island items', 'Rock bands', 'Midnight snack decisions', 'Cursed kitchen gadgets'];
+const topics = ['Brands', 'Guilty pleasures', 'Things that make you cry', 'Harry Potter', 'Smells', 'SQL Clauses', 'Beatles songs','Things you would do for love','Things you would do for money', '90s villains', 'U2','TV Shows','Tintin albums', 'Footabl Clubs','Disney Movies', 'Nirvana', 'Breakfast crimes', 'French patisserie', 'Kaltura', 'Desert island items', 'Rock bands', 'Midnight snack decisions', 'Cursed kitchen gadgets'];
 const reviewers = ['Gordon Ramsay','Joe Rogan','Donald Trump', 'Nick Cave', 'Quentin Tarantino', 'Serge le mytho', 'Morgan Freeman','Homer Simpson','Victor Hugo','Schwarzie','Jim Carrey','Albert Camus','Socrates'];
 
 
@@ -20,9 +20,9 @@ const instructions = {
 
   const guidance = {
     title: `Write an impactful and funny short title of the following review. 
-    Keep it under 10 words. 
+    Keep it under 6 words. 
     It should feel personal, funny, or strange — not corporate or generic. 
-    Using the tone of voice and style of: `,
+    Use the tone of voice and style of: `,
     titleFormat: `The title should be a string, with no comments, no extra characters, no triple dots, no markdown.`,
     body: `Based on the user answers below, write a short, bold, and funny review of their personality.
   In english only. The length should be 100 words max. Keep it between 5 or 6 sentences. 

@@ -16,7 +16,7 @@ body {
 
 .screen {
     display: none;
-    width: 100vw;
+    max-width: 100vw;
     min-height: 100vh;
     box-sizing: border-box;
 }
@@ -196,6 +196,11 @@ body {
     letter-spacing: 1px;
 }
 
+.polka-dots-bg{
+    background: url('img/polka_dots.png') repeat center center;
+    background-size: 100px;
+}
+
 #final-response-loading{
     color: #000;
     font-size: 76px;
@@ -299,6 +304,7 @@ body {
     .review-text {
         font-size: 24px;
     }
+
     #final-response-container {
         font-size: 48px;
     }
@@ -312,19 +318,21 @@ body {
     .screen.no-padding{
         padding: 0;
     }
-    .reviewer-title{
-        padding: var(--space-sm);
-    }
-    .review-text{
-        padding: var(--space-sm);
-    }
-
-    .review-title{
+    .reviewer-name{
         font-size: var(--font-size-md);
+    }
+    .review-header{
+        padding: var(--space-md);
+    }
+    .review-title{
+        font-size: var(--font-size-lg);
         margin:0;
         margin-bottom: var(--space-sm);
     }
-    .review-body{
+    .review-body-container{
+        padding: var(--space-md);
+    }
+    .review-body-container p{
         font-size: var(--font-size-sm);
     }
     .button{

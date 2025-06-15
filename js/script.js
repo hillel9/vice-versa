@@ -295,6 +295,7 @@
             reviewHeader.appendChild(reviewTitle);
             reviewHeader.appendChild(reviewerName);
             reviewBodyContainer.appendChild(reviewBody);
+            screen7.classList.add('polka-dots-bg');
             
 
         } catch (error) {
