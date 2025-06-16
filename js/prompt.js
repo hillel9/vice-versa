@@ -1,5 +1,5 @@
-const topics = ['Brands', 'Guilty pleasures', 'Things that make you cry', 'Harry Potter', 'Smells', 'SQL Clauses', 'Beatles songs','Things you would do for love','Things you would do for money','Fears', '90s villains','Alter egos', 'U2','TV Shows','Memes', 'Footabl Clubs','Disney Movies', 'Nirvana', 'Breakfast crimes', 'French patisserie', 'Kaltura', 'Desert island items', 'Rock bands', 'Midnight snack decisions', 'Cursed kitchen gadgets'];
-const reviewers = ['Gordon Ramsay','Joe Rogan','Donald Trump', 'Nick Cave', 'Quentin Tarantino', 'Serge le mytho', 'Morgan Freeman','Homer Simpson','Victor Hugo','Schwarzie','Jim Carrey','Albert Camus','Socrates'];
+const topics = ['Brands', 'Guilty pleasures', 'Things that make you cry', 'Harry Potter', 'Smells', 'SQL Clauses', 'Beatles songs','Things you would do for love','Things you would do for money','Fears', '90s villains','Alter egos', 'U2','TV Shows','Memes', 'Footabl Clubs','Disney Movies', 'Nirvana', 'Breakfast crimes', 'French patisserie', 'Kaltura', 'Desert island items', 'Rock bands', 'Midnight snack', 'Kitchen gadgets','CSS properties'];
+const reviewers = ['Gordon Ramsay','Joe Rogan','Donald Trump','Yoda','Phoebe Buffay', 'Nick Cave','The Dude', 'Quentin Tarantino', 'Serge le mytho', 'Morgan Freeman','Homer Simpson','Victor Hugo','Schwarzie','Jim Carrey','Albert Camus','Socrates'];
 
 
 const instructions = {
@@ -29,7 +29,7 @@ const instructions = {
   Dont use bold or italic. Dont use markdown.
   Begin immediately with the first sentence of the review.
   Do not name specific choices the user made. Instead, interpret them to reveal underlying values, behaviors, contradictions, or quirks.
-  Each sentence should pack personality but remain punchy and clear. Sprinkle in tons of humor.
+  Each sentence should pack personality but remain punchy and clear. Sprinkle in tons of humor. Use maximum 5 emojis.
   End with a killer last line.
   The tone of voice should use the following character: `
   }
